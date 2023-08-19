@@ -1,0 +1,66 @@
+{
+  "name": "function-gpt",
+  "version": "0.1.0",
+  "description": "A library to simplify the handling of function calling in OpenAI's ChatGPT API.",
+  "author": "atinylittleshell <shell@atinylittleshell.me>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atinylittleshell/function-gpt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/atinylittleshell/function-gpt/issues"
+  },
+  "keywords": [
+    "ai",
+    "openai",
+    "api",
+    "gpt",
+    "chatgpt",
+    "function calling"
+  ],
+  "type": "module",
+  "exports": {
+    "import": {
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "require": {
+      "default": "./dist/index.cjs",
+      "types": "./dist/index.d.cts"
+    }
+  },
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint . --ext .ts",
+    "test": "vitest run --coverage",
+    "changeset": "changeset",
+    "release": "pnpm build && changeset publish"
+  },
+  "dependencies": {
+    "openai": "^4.0.0"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.26.2",
+    "@tsconfig/node16": "^16.1.0",
+    "@types/node": "^20.5.0",
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@typescript-eslint/parser": "^6.4.0",
+    "@vitest/coverage-v8": "^0.34.2",
+    "eslint": "^8.47.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-import-resolver-node": "^0.3.9",
+    "eslint-plugin-import": "^2.28.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "prettier": "^3.0.2",
+    "tsup": "^7.2.0",
+    "typescript": "^5.1.6",
+    "vitest": "^0.34.1"
+  },
+  "packageManager": "pnpm@8.6.12"
+}
