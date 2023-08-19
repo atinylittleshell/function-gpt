@@ -2,7 +2,10 @@
 
 > This is a typescript library that helps handle [function calling](https://platform.openai.com/docs/guides/gpt/function-calling) with OpenAI's ChatGPT API.
 
-[![NPM](https://img.shields.io/npm/v/function-gpt.svg)](https://www.npmjs.com/package/function-gpt) [![Build Status](https://github.com/atinylittleshell/function-gpt/actions/workflows/publish.yml/badge.svg)](https://github.com/atinylittleshell/function-gpt/actions/workflows/publish.yml) [![MIT License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/atinylittleshell/function-gpt/blob/main/license)
+[![NPM](https://img.shields.io/npm/v/function-gpt.svg)](https://www.npmjs.com/package/function-gpt)
+[![Build Status](https://github.com/atinylittleshell/function-gpt/actions/workflows/publish.yml/badge.svg)](https://github.com/atinylittleshell/function-gpt/actions/workflows/publish.yml)
+[![codecov](https://codecov.io/gh/kunchenguid/TerminalOne/branch/main/graph/badge.svg?token=2TEJYGL994)](https://codecov.io/gh/kunchenguid/TerminalOne)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/atinylittleshell/function-gpt/blob/main/license)
 
 - Requires typescript
 - Leverages the official [openai](https://www.npmjs.com/package/openai) npm package for communicating with OpenAI's API
