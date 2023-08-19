@@ -1,5 +1,11 @@
 # function-gpt
 
+## 1.0.1
+
+### Patch Changes
+
+- 441062d: fix changeset config
+
 ## 1.0.0
 
 ### Major Changes
