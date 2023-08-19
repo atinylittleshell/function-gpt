@@ -1,5 +1,11 @@
 # function-gpt
 
+## 1.0.2
+
+### Patch Changes
+
+- e1afed4: fix npm package files
+
 ## 1.0.1
 
 ### Patch Changes
