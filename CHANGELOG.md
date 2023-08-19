@@ -1,5 +1,11 @@
 # function-gpt
 
+## 1.0.5
+
+### Patch Changes
+
+- 1296757: try fixing publish workflow
+
 ## 1.0.4
 
 ### Patch Changes
