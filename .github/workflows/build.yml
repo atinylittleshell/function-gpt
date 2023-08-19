@@ -1,0 +1,42 @@
+name: build
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os:
+          - ubuntu
+        node-version:
+          - '16.x'
+
+    name: build
+
+    runs-on: ${{ matrix.os }}-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: install pnpm dependencies
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.6.12
+          run_install: true
+
+      - name: lint
+        run: pnpm lint
+
+      - name: build
+        run: pnpm build
+
+      - name: test
+        run: pnpm test
