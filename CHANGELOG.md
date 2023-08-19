@@ -1,5 +1,11 @@
 # function-gpt
 
+## 1.0.4
+
+### Patch Changes
+
+- ec30c37: setup npmrc correctly
+
 ## 1.0.3
 
 ### Patch Changes
