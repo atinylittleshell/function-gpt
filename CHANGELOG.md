@@ -1,5 +1,11 @@
 # function-gpt
 
+## 1.2.0
+
+### Minor Changes
+
+- 5972072: support execute_only mode
+
 ## 1.1.0
 
 ### Minor Changes
