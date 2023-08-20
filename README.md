@@ -4,7 +4,7 @@
 
 [![NPM](https://img.shields.io/npm/v/function-gpt.svg)](https://www.npmjs.com/package/function-gpt)
 [![Build Status](https://github.com/atinylittleshell/function-gpt/actions/workflows/publish.yml/badge.svg)](https://github.com/atinylittleshell/function-gpt/actions/workflows/publish.yml)
-[![codecov](https://codecov.io/gh/kunchenguid/TerminalOne/branch/main/graph/badge.svg?token=2TEJYGL994)](https://codecov.io/gh/kunchenguid/TerminalOne)
+[![codecov](https://codecov.io/gh/atinylittleshell/function-gpt/graph/badge.svg?token=1R81CX1Z14)](https://codecov.io/gh/atinylittleshell/function-gpt)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/atinylittleshell/function-gpt/blob/main/license)
 
 - Requires typescript
