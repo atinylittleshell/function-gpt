@@ -7,15 +7,17 @@
 [![codecov](https://codecov.io/gh/atinylittleshell/function-gpt/graph/badge.svg?token=1R81CX1Z14)](https://codecov.io/gh/atinylittleshell/function-gpt)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/atinylittleshell/function-gpt/blob/main/license)
 
-- Requires typescript
 - Leverages the official [openai](https://www.npmjs.com/package/openai) npm package for communicating with OpenAI's API
-- Automatically generate function calling JSON schema from decorated typescript classes
+- Uses typescript decorators to provide metadata for function calling
+- Automatically generate function calling JSON schema from decorated typescript functions
 - Automatically parse function calling response
 - Automatically call functions and send back results to OpenAI
 
 ## Example
 
 ```typescript
+import { gptFunction, gptObjectField, ChatGPTSession } from 'function-gpt';
+
 // First create your own class that extends ChatGPTSession.
 class BrowseSession extends ChatGPTSession {
   // Define functions that you want to provide to ChatGPT for function calling.
