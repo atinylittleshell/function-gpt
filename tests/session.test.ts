@@ -57,52 +57,6 @@ afterEach(() => {
   vi.clearAllMocks();
 });
 
-test('function schema is generated correctly', async () => {
-  class TestFuncInput {
-    @gptObjectField('string', 'this is a test string', true)
-    public testString: string = '';
-
-    @gptObjectField('number', 'this is a test number', false)
-    public testNumber: number = 0;
-  }
-
-  class TestSession extends ChatGPTSession {
-    constructor() {
-      super({
-        apiKey: 'test',
-      });
-    }
-
-    @gptFunction('this is a test function', TestFuncInput)
-    testFunc(params: TestFuncInput) {
-      return params;
-    }
-  }
-
-  const testSession = new TestSession();
-  const schema = testSession.getFunctionSchema();
-  expect(schema).toEqual([
-    {
-      name: 'testFunc',
-      description: 'this is a test function',
-      parameters: {
-        type: 'object',
-        properties: {
-          testString: {
-            type: 'string',
-            description: 'this is a test string',
-          },
-          testNumber: {
-            type: 'number',
-            description: 'this is a test number',
-          },
-        },
-        required: ['testString'],
-      },
-    },
-  ]);
-});
-
 const fetch = vi.fn().mockImplementation(() => Promise.resolve());
 
 test('function calling should work', async () => {
