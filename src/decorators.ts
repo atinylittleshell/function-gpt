@@ -31,9 +31,9 @@ export function gptFunction(description: string, inputType: new () => unknown) {
 }
 
 export function gptObjectField(
-  type: 'string' | 'number' | 'boolean' | (new () => unknown) | [new () => unknown],
+  type: 'string' | 'number' | 'boolean' | ['string' | 'number' | 'boolean'] | (new () => unknown) | [new () => unknown],
   description: string,
-  required = true,
+  optional = false,
 ) {
   return function (target: object, propertyKey: string) {
     const ctor = target.constructor as new () => unknown;
@@ -51,38 +51,46 @@ export function gptObjectField(
         name: propertyKey,
         description,
         type: { type: 'string' },
-        required,
+        required: !optional,
       });
     } else if (type === 'number') {
       metadata.fields.push({
         name: propertyKey,
         description,
         type: { type: 'number' },
-        required,
+        required: !optional,
       });
     } else if (type === 'boolean') {
       metadata.fields.push({
         name: propertyKey,
         description,
         type: { type: 'boolean' },
-        required,
+        required: !optional,
       });
     } else if (Array.isArray(type)) {
+      const elementType = type[0];
       metadata.fields.push({
         name: propertyKey,
         description,
         type: {
           type: 'array',
-          elementType: GPT_TYPE_METADATA.get(type[0]) as GPTTypeMetadata,
+          elementType:
+            elementType === 'string'
+              ? { type: 'string' }
+              : elementType === 'number'
+              ? { type: 'number' }
+              : elementType === 'boolean'
+              ? { type: 'boolean' }
+              : (GPT_TYPE_METADATA.get(elementType) as GPTTypeMetadata),
         },
-        required,
+        required: !optional,
       });
     } else if (typeof type === 'function') {
       metadata.fields.push({
         name: propertyKey,
         description,
         type: GPT_TYPE_METADATA.get(type) as GPTTypeMetadata,
-        required,
+        required: !optional,
       });
     }
 

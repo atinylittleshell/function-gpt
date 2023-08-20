@@ -33,8 +33,8 @@ class BrowseSession extends ChatGPTSession {
 // Define the type of the input parameter for functions above.
 class BrowseParams {
   // Decorate each field with @gptObjectField to provide necessary metadata.
-  @gptObjectField('string', 'url of the web page to browse', true)
-  public url: string = '';
+  @gptObjectField('string', 'url of the web page to browse')
+  public url!: string;
 }
 
 const session = new BrowseSession();
