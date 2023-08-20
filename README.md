@@ -55,6 +55,10 @@ const response = await session.send('count characters in the html content of htt
 expect(response).toBe('There are 4096 characters in the html content of https://www.google.com/.');
 ```
 
+## API References
+
+See [API references](./doc/README.md) for more detailed information on how to use the library.
+
 ## Installation
 
 ```bash

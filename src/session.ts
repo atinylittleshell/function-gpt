@@ -56,16 +56,26 @@ const describeField = (description: string | null, fieldType: GPTTypeMetadata) =
   return result;
 };
 
+/**
+ * Options for the ChatGPTSession constructor. Compatible with the OpenAI node client options.
+ *
+ * @see [OpenAI Node Client](https://github.com/openai/openai-node)
+ */
 export type ChatGPTSessionOptions = {
   systemMessage?: string;
-  model?: string;
 } & ClientOptions;
 
+/**
+ * Represents a function call requested by ChatGPT.
+ */
 export type ChatGPTFunctionCall = {
   arguments: string;
   name: string;
 };
 
+/**
+ * Represents a message in a ChatGPT session.
+ */
 export type ChatGPTSessionMessage = {
   role: 'system' | 'user' | 'assistant' | 'function';
   name?: string;
@@ -73,6 +83,11 @@ export type ChatGPTSessionMessage = {
   function_call?: ChatGPTFunctionCall;
 };
 
+/**
+ * Options for the ChatGPTSession.send method.
+ *
+ * @see [OpenAI Chat Completion API](https://platform.openai.com/docs/api-reference/chat/create).
+ */
 export type ChatGPTSendMessageOptions = {
   /**
    * Stop the session after executing the function call.
@@ -82,9 +97,9 @@ export type ChatGPTSendMessageOptions = {
   function_call_execute_only?: boolean;
 
   /**
-   * ID of the model to use. See the
-   * [model endpoint compatibility](/docs/models/model-endpoint-compatibility) table
-   * for details on which models work with the Chat API.
+   * ID of the model to use.
+   *
+   * @see [model endpoint compatibility](https://platform.openai.com/docs/models/overview)
    */
   model: string;
 
@@ -93,7 +108,7 @@ export type ChatGPTSendMessageOptions = {
    * existing frequency in the text so far, decreasing the model's likelihood to
    * repeat the same line verbatim.
    *
-   * [See more information about frequency and presence penalties.](/docs/api-reference/parameter-details)
+   * @see [See more information about frequency and presence penalties.](https://platform.openai.com/docs/api-reference/parameter-details)
    */
   frequency_penalty?: number | null;
 
@@ -134,7 +149,7 @@ export type ChatGPTSendMessageOptions = {
    * whether they appear in the text so far, increasing the model's likelihood to
    * talk about new topics.
    *
-   * [See more information about frequency and presence penalties.](/docs/api-reference/parameter-details)
+   * [See more information about frequency and presence penalties.](https://platform.openai.com/docs/api-reference/parameter-details)
    */
   presence_penalty?: number | null;
 
@@ -163,16 +178,29 @@ export type ChatGPTSendMessageOptions = {
 
   /**
    * A unique identifier representing your end-user, which can help OpenAI to monitor
-   * and detect abuse. [Learn more](/docs/guides/safety-best-practices/end-user-ids).
+   * and detect abuse.
+   *
+   * @see [Learn more](https://platform.openai.com/docs/guides/safety-best-practices).
    */
   user?: string;
 };
 
+/**
+ * Extend this class to create your own function-calling enabled ChatGPT session.
+ * Provide functions to the assistant by decorating them with the `@gptFunction` decorator.
+ *
+ * @see {@link gptFunction}
+ */
 export class ChatGPTSession {
   public readonly openai: OpenAI;
   private readonly metadata: GPTClientMetadata;
   private sessionMessages: ChatGPTSessionMessage[] = [];
 
+  /**
+   * @param options - Options for the ChatGPTSession constructor.
+   *
+   * @see {@link ChatGPTSessionOptions}
+   */
   constructor(private readonly options: ChatGPTSessionOptions = {}) {
     this.openai = new OpenAI(options);
 
@@ -183,6 +211,13 @@ export class ChatGPTSession {
     this.metadata = metadata;
   }
 
+  /**
+   * @param message - The user message to send to the assistant.
+   * @param options - Options for the ChatGPTSession.send method.
+   * @returns The assistant's response.
+   *
+   * @see {@link ChatGPTSendMessageOptions}
+   */
   public async send(
     message: string,
     options: ChatGPTSendMessageOptions = {
@@ -213,6 +248,9 @@ export class ChatGPTSession {
     return await this.processAssistantMessage(response.choices[0].message, options);
   }
 
+  /**
+   * @returns The messages sent to and from the assistant so far.
+   */
   get messages(): ChatGPTSessionMessage[] {
     return this.sessionMessages;
   }
@@ -268,6 +306,9 @@ export class ChatGPTSession {
     return message.content!;
   }
 
+  /**
+   * @ignore
+   */
   public getFunctionSchema() {
     const schema = Object.values(this.metadata.functions).map((f) => ({
       name: f.name,

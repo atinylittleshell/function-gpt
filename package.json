@@ -38,6 +38,7 @@
     "node": ">=16.0.0"
   },
   "scripts": {
+    "doc": "shx rm -rf doc && typedoc",
     "build": "tsup",
     "lint": "eslint . --ext .ts",
     "test": "vitest run --coverage",
@@ -61,7 +62,10 @@
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "prettier": "^3.0.2",
+    "shx": "^0.3.4",
     "tsup": "^7.2.0",
+    "typedoc": "^0.24.8",
+    "typedoc-plugin-markdown": "^3.15.4",
     "typescript": "^5.1.6",
     "vitest": "^0.34.1"
   },

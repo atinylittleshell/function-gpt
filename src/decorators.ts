@@ -7,6 +7,15 @@ import {
 } from './internals.js';
 import { ChatGPTSession } from './session.js';
 
+/**
+ * Use this decorator on a method within a ChatGPTSession subclass to enable it for function-calling.
+ *
+ * @param description - A description of the function.
+ * @param inputType - Input for the function should be an object instance of a custom class.
+ *                    This parameter specifies the class of the object.
+ *
+ * @see {@link gptObjectField}
+ */
 export function gptFunction(description: string, inputType: new () => unknown) {
   return function (target: object, propertyKey: string, descriptor: PropertyDescriptor) {
     const ctor = target.constructor as new () => ChatGPTSession;
@@ -30,6 +39,17 @@ export function gptFunction(description: string, inputType: new () => unknown) {
   };
 }
 
+/**
+ * Use this decorator on a property within a custom class to include it as a parameter for function-calling.
+ *
+ * @param type - Type of the field.
+ *               Use `'string'`, `'number'`, `'boolean'` for primitive types.
+ *               Use `['string']`, `['number']`, `['boolean']` for arrays of primitive types.
+ *               Use a ClassName for custom types.
+ *               Use `[ClassName]` for arrays of custom types.
+ * @param description - Description of the field.
+ * @param optional - Whether the field is optional. Default to `false`.
+ */
 export function gptObjectField(
   type: 'string' | 'number' | 'boolean' | ['string' | 'number' | 'boolean'] | (new () => unknown) | [new () => unknown],
   description: string,

@@ -24,5 +24,11 @@
   "exclude": [
     "dist",
     "node_modules"
-  ]
+  ],
+  "typedocOptions": {
+    "entryPoints": ["index.ts"],
+    "out": "doc",
+    "readme": "none",
+    "plugin": ["typedoc-plugin-markdown"]
+  }
 }
