@@ -201,8 +201,11 @@ export class ChatGPTSession {
       content: message,
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { function_call_execute_only, ...optionsToSend } = options;
+
     const response = await this.openai.chat.completions.create({
-      ...options,
+      ...optionsToSend,
       messages: this.sessionMessages,
       functions: this.getFunctionSchema(),
     });
@@ -250,8 +253,11 @@ export class ChatGPTSession {
         return '';
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { function_call_execute_only, ...optionsToSend } = options;
+
       const response = await this.openai.chat.completions.create({
-        ...options,
+        ...optionsToSend,
         messages: this.sessionMessages,
         functions: this.getFunctionSchema(),
       });
