@@ -1,5 +1,11 @@
 # function-gpt
 
+## 1.0.6
+
+### Patch Changes
+
+- 33d02dd: fix exports and readme example
+
 ## 1.0.5
 
 ### Patch Changes
