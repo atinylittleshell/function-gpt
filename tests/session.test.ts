@@ -66,12 +66,6 @@ test('function calling should work', async () => {
   }
 
   class BrowseSession extends ChatGPTSession {
-    constructor() {
-      super({
-        apiKey: '<MY_OPENAI_API_KEY>',
-      });
-    }
-
     @gptFunction('browse a web page and return its html content', BrowseParams)
     async browse(params: BrowseParams) {
       await fetch(params.url);
@@ -85,4 +79,30 @@ test('function calling should work', async () => {
   expect(session.openai.chat.completions.create).toHaveBeenCalledTimes(2);
   expect(fetch).toHaveBeenCalledTimes(1);
   expect(response).toEqual('this is a test response');
+});
+
+test('execute_only mode should work', async () => {
+  class BrowseParams {
+    @gptObjectField('string', 'url of the web page to browse', true)
+    public url: string = '';
+  }
+
+  class BrowseSession extends ChatGPTSession {
+    @gptFunction('browse a web page and return its html content', BrowseParams)
+    async browse(params: BrowseParams) {
+      await fetch(params.url);
+    }
+  }
+
+  const session = new BrowseSession();
+  const response = await session.send('this is a test message', {
+    model: 'gpt-3.5-turbo',
+    function_call_execute_only: true,
+  });
+
+  expect(OpenAI).toHaveBeenCalledTimes(1);
+  expect(session.openai.chat.completions.create).toHaveBeenCalledTimes(1);
+  expect(fetch).toHaveBeenCalledTimes(1);
+  expect(session.messages.length).toEqual(3);
+  expect(response).toEqual('');
 });
