@@ -75,11 +75,19 @@ export type ChatGPTSessionMessage = {
 
 export type ChatGPTSendMessageOptions = {
   /**
+   * Stop the session after executing the function call.
+   * Useful when you don't need to give ChatGPT the result of the function call.
+   * Defaults to `false`.
+   */
+  function_call_execute_only?: boolean;
+
+  /**
    * ID of the model to use. See the
    * [model endpoint compatibility](/docs/models/model-endpoint-compatibility) table
    * for details on which models work with the Chat API.
    */
   model: string;
+
   /**
    * Number between -2.0 and 2.0. Positive values penalize new tokens based on their
    * existing frequency in the text so far, decreasing the model's likelihood to
@@ -88,6 +96,7 @@ export type ChatGPTSendMessageOptions = {
    * [See more information about frequency and presence penalties.](/docs/api-reference/parameter-details)
    */
   frequency_penalty?: number | null;
+
   /**
    * Controls how the model responds to function calls. "none" means the model does
    * not call a function, and responds to the end-user. "auto" means the model can
@@ -97,6 +106,7 @@ export type ChatGPTSendMessageOptions = {
    * are present.
    */
   function_call?: 'none' | 'auto' | { name: string };
+
   /**
    * Modify the likelihood of specified tokens appearing in the completion.
    *
@@ -108,6 +118,7 @@ export type ChatGPTSendMessageOptions = {
    * or exclusive selection of the relevant token.
    */
   logit_bias?: Record<string, number> | null;
+
   /**
    * The maximum number of [tokens](/tokenizer) to generate in the chat completion.
    *
@@ -117,6 +128,7 @@ export type ChatGPTSendMessageOptions = {
    * for counting tokens.
    */
   max_tokens?: number;
+
   /**
    * Number between -2.0 and 2.0. Positive values penalize new tokens based on
    * whether they appear in the text so far, increasing the model's likelihood to
@@ -125,10 +137,12 @@ export type ChatGPTSendMessageOptions = {
    * [See more information about frequency and presence penalties.](/docs/api-reference/parameter-details)
    */
   presence_penalty?: number | null;
+
   /**
    * Up to 4 sequences where the API will stop generating further tokens.
    */
   stop?: string | null | Array<string>;
+
   /**
    * What sampling temperature to use, between 0 and 2. Higher values like 0.8 will
    * make the output more random, while lower values like 0.2 will make it more
@@ -231,6 +245,10 @@ export class ChatGPTSession {
         name: message.function_call.name,
         content: JSON.stringify(resultValue),
       });
+
+      if (options.function_call_execute_only) {
+        return '';
+      }
 
       const response = await this.openai.chat.completions.create({
         ...options,
