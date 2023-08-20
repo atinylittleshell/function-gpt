@@ -1,5 +1,11 @@
 # function-gpt
 
+## 1.2.1
+
+### Patch Changes
+
+- 04eb21b: fix a bug with execute_only mode
+
 ## 1.2.0
 
 ### Minor Changes
