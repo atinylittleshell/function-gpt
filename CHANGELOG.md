@@ -1,5 +1,11 @@
 # function-gpt
 
+## 1.1.0
+
+### Minor Changes
+
+- d67864d: support object fields that are array of primitives
+
 ## 1.0.6
 
 ### Patch Changes
