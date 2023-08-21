@@ -1,5 +1,11 @@
 # function-gpt
 
+## 1.4.0
+
+### Minor Changes
+
+- 66a372d: added a few helper decorators for common types
+
 ## 1.3.0
 
 ### Minor Changes
