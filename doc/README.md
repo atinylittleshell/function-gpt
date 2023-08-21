@@ -17,8 +17,14 @@ function-gpt
 
 ### Functions
 
+- [gptArray](README.md#gptarray)
+- [gptBoolean](README.md#gptboolean)
+- [gptEnum](README.md#gptenum)
 - [gptFunction](README.md#gptfunction)
+- [gptNumber](README.md#gptnumber)
+- [gptObject](README.md#gptobject)
 - [gptObjectField](README.md#gptobjectfield)
+- [gptString](README.md#gptstring)
 
 ## Type Aliases
 
@@ -37,7 +43,7 @@ Represents a function call requested by ChatGPT.
 
 #### Defined in
 
-[src/session.ts:71](https://github.com/atinylittleshell/function-gpt/blob/04eb21b/src/session.ts#L71)
+[src/session.ts:78](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L78)
 
 ___
 
@@ -69,7 +75,7 @@ Options for the ChatGPTSession.send method.
 
 #### Defined in
 
-[src/session.ts:91](https://github.com/atinylittleshell/function-gpt/blob/04eb21b/src/session.ts#L91)
+[src/session.ts:98](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L98)
 
 ___
 
@@ -90,7 +96,7 @@ Represents a message in a ChatGPT session.
 
 #### Defined in
 
-[src/session.ts:79](https://github.com/atinylittleshell/function-gpt/blob/04eb21b/src/session.ts#L79)
+[src/session.ts:86](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L86)
 
 ___
 
@@ -106,9 +112,119 @@ Options for the ChatGPTSession constructor. Compatible with the OpenAI node clie
 
 #### Defined in
 
-[src/session.ts:64](https://github.com/atinylittleshell/function-gpt/blob/04eb21b/src/session.ts#L64)
+[src/session.ts:71](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L71)
 
 ## Functions
+
+### gptArray
+
+▸ **gptArray**(`type`, `description`, `optional?`): (`target`: `object`, `propertyKey`: `string`) => `void`
+
+Use this decorator on an array of strings property within a custom class to include it as a parameter for function-calling.
+
+#### Parameters
+
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `type` | ``"string"`` \| ``"number"`` \| ``"boolean"`` \| { `enum`: `string`[]  } \| () => `unknown` | `undefined` | - |
+| `description` | `string` | `undefined` | Description of the field. |
+| `optional` | `boolean` | `false` | Whether the field is optional. Default to `false`. |
+
+#### Returns
+
+`fn`
+
+▸ (`target`, `propertyKey`): `void`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | `object` |
+| `propertyKey` | `string` |
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+[src/decorators.ts:194](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/decorators.ts#L194)
+
+___
+
+### gptBoolean
+
+▸ **gptBoolean**(`description`, `optional?`): (`target`: `object`, `propertyKey`: `string`) => `void`
+
+Use this decorator on a boolean property within a custom class to include it as a parameter for function-calling.
+
+#### Parameters
+
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `description` | `string` | `undefined` | Description of the field. |
+| `optional` | `boolean` | `false` | Whether the field is optional. Default to `false`. |
+
+#### Returns
+
+`fn`
+
+▸ (`target`, `propertyKey`): `void`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | `object` |
+| `propertyKey` | `string` |
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+[src/decorators.ts:162](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/decorators.ts#L162)
+
+___
+
+### gptEnum
+
+▸ **gptEnum**(`values`, `description`, `optional?`): (`target`: `object`, `propertyKey`: `string`) => `void`
+
+Use this decorator on a custom class property within a custom class to include it as a parameter for function-calling.
+
+#### Parameters
+
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `values` | `string`[] | `undefined` | Possible values of the enum. |
+| `description` | `string` | `undefined` | Description of the field. |
+| `optional` | `boolean` | `false` | Whether the field is optional. Default to `false`. |
+
+#### Returns
+
+`fn`
+
+▸ (`target`, `propertyKey`): `void`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | `object` |
+| `propertyKey` | `string` |
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+[src/decorators.ts:184](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/decorators.ts#L184)
+
+___
 
 ### gptFunction
 
@@ -147,21 +263,20 @@ Use this decorator on a method within a ChatGPTSession subclass to enable it for
 
 #### Defined in
 
-[src/decorators.ts:19](https://github.com/atinylittleshell/function-gpt/blob/04eb21b/src/decorators.ts#L19)
+[src/decorators.ts:19](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/decorators.ts#L19)
 
 ___
 
-### gptObjectField
+### gptNumber
 
-▸ **gptObjectField**(`type`, `description`, `optional?`): (`target`: `object`, `propertyKey`: `string`) => `void`
+▸ **gptNumber**(`description`, `optional?`): (`target`: `object`, `propertyKey`: `string`) => `void`
 
-Use this decorator on a property within a custom class to include it as a parameter for function-calling.
+Use this decorator on a number property within a custom class to include it as a parameter for function-calling.
 
 #### Parameters
 
 | Name | Type | Default value | Description |
 | :------ | :------ | :------ | :------ |
-| `type` | ``"string"`` \| ``"number"`` \| ``"boolean"`` \| [``"string"`` \| ``"number"`` \| ``"boolean"``] \| [() => `unknown`] \| () => `unknown` | `undefined` | Type of the field. Use `'string'`, `'number'`, `'boolean'` for primitive types. Use `['string']`, `['number']`, `['boolean']` for arrays of primitive types. Use a ClassName for custom types. Use `[ClassName]` for arrays of custom types. |
 | `description` | `string` | `undefined` | Description of the field. |
 | `optional` | `boolean` | `false` | Whether the field is optional. Default to `false`. |
 
@@ -184,4 +299,114 @@ Use this decorator on a property within a custom class to include it as a parame
 
 #### Defined in
 
-[src/decorators.ts:53](https://github.com/atinylittleshell/function-gpt/blob/04eb21b/src/decorators.ts#L53)
+[src/decorators.ts:152](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/decorators.ts#L152)
+
+___
+
+### gptObject
+
+▸ **gptObject**(`type`, `description`, `optional?`): (`target`: `object`, `propertyKey`: `string`) => `void`
+
+Use this decorator on a custom class property within a custom class to include it as a parameter for function-calling.
+
+#### Parameters
+
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `type` | () => `unknown` | `undefined` | Type of the field. |
+| `description` | `string` | `undefined` | Description of the field. |
+| `optional` | `boolean` | `false` | Whether the field is optional. Default to `false`. |
+
+#### Returns
+
+`fn`
+
+▸ (`target`, `propertyKey`): `void`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | `object` |
+| `propertyKey` | `string` |
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+[src/decorators.ts:173](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/decorators.ts#L173)
+
+___
+
+### gptObjectField
+
+▸ **gptObjectField**(`type`, `description`, `optional?`): (`target`: `object`, `propertyKey`: `string`) => `void`
+
+Use this decorator on a property within a custom class to include it as a parameter for function-calling.
+
+#### Parameters
+
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `type` | ``"string"`` \| ``"number"`` \| ``"boolean"`` \| { `enum`: `string`[]  } \| [``"string"`` \| ``"number"`` \| ``"boolean"`` \| { `enum`: `string`[]  } \| () => `unknown`] \| () => `unknown` | `undefined` | Type of the field. Use `'string'`, `'number'`, `'boolean'` for primitive types. Use `['string']`, `['number']`, `['boolean']` for arrays of primitive types. Use a ClassName for custom types. Use `[ClassName]` for arrays of custom types. |
+| `description` | `string` | `undefined` | Description of the field. |
+| `optional` | `boolean` | `false` | Whether the field is optional. Default to `false`. |
+
+#### Returns
+
+`fn`
+
+▸ (`target`, `propertyKey`): `void`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | `object` |
+| `propertyKey` | `string` |
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+[src/decorators.ts:53](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/decorators.ts#L53)
+
+___
+
+### gptString
+
+▸ **gptString**(`description`, `optional?`): (`target`: `object`, `propertyKey`: `string`) => `void`
+
+Use this decorator on a string property within a custom class to include it as a parameter for function-calling.
+
+#### Parameters
+
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `description` | `string` | `undefined` | Description of the field. |
+| `optional` | `boolean` | `false` | Whether the field is optional. Default to `false`. |
+
+#### Returns
+
+`fn`
+
+▸ (`target`, `propertyKey`): `void`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `target` | `object` |
+| `propertyKey` | `string` |
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+[src/decorators.ts:142](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/decorators.ts#L142)

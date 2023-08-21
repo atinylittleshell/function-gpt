@@ -21,7 +21,16 @@ export type GPTArrayTypeMetadata = {
   elementType: GPTTypeMetadata;
 };
 
-export type GPTTypeMetadata = GPTPrimitiveTypeMetadata | GPTObjectTypeMetadata | GPTArrayTypeMetadata;
+export type GPTEnumTypeMetadata = {
+  type: 'enum';
+  values: string[];
+};
+
+export type GPTTypeMetadata =
+  | GPTPrimitiveTypeMetadata
+  | GPTObjectTypeMetadata
+  | GPTArrayTypeMetadata
+  | GPTEnumTypeMetadata;
 
 export type GPTFunctionMetadata = {
   name: string;

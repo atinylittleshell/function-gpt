@@ -49,7 +49,7 @@ Provide functions to the assistant by decorating them with the `@gptFunction` de
 
 #### Defined in
 
-[src/session.ts:204](https://github.com/atinylittleshell/function-gpt/blob/04eb21b/src/session.ts#L204)
+[src/session.ts:211](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L211)
 
 ## Properties
 
@@ -59,7 +59,7 @@ Provide functions to the assistant by decorating them with the `@gptFunction` de
 
 #### Defined in
 
-[src/session.ts:196](https://github.com/atinylittleshell/function-gpt/blob/04eb21b/src/session.ts#L196)
+[src/session.ts:203](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L203)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[src/session.ts:195](https://github.com/atinylittleshell/function-gpt/blob/04eb21b/src/session.ts#L195)
+[src/session.ts:202](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L202)
 
 ___
 
@@ -81,7 +81,7 @@ Options for the ChatGPTSession constructor.
 
 #### Defined in
 
-[src/session.ts:204](https://github.com/atinylittleshell/function-gpt/blob/04eb21b/src/session.ts#L204)
+[src/session.ts:211](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L211)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 #### Defined in
 
-[src/session.ts:197](https://github.com/atinylittleshell/function-gpt/blob/04eb21b/src/session.ts#L197)
+[src/session.ts:204](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L204)
 
 ## Accessors
 
@@ -107,7 +107,7 @@ The messages sent to and from the assistant so far.
 
 #### Defined in
 
-[src/session.ts:254](https://github.com/atinylittleshell/function-gpt/blob/04eb21b/src/session.ts#L254)
+[src/session.ts:261](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L261)
 
 ## Methods
 
@@ -128,7 +128,7 @@ The messages sent to and from the assistant so far.
 
 #### Defined in
 
-[src/session.ts:258](https://github.com/atinylittleshell/function-gpt/blob/04eb21b/src/session.ts#L258)
+[src/session.ts:265](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L265)
 
 ___
 
@@ -155,4 +155,4 @@ The assistant's response.
 
 #### Defined in
 
-[src/session.ts:221](https://github.com/atinylittleshell/function-gpt/blob/04eb21b/src/session.ts#L221)
+[src/session.ts:228](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L228)

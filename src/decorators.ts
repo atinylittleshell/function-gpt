@@ -51,7 +51,13 @@ export function gptFunction(description: string, inputType: new () => unknown) {
  * @param optional - Whether the field is optional. Default to `false`.
  */
 export function gptObjectField(
-  type: 'string' | 'number' | 'boolean' | ['string' | 'number' | 'boolean'] | (new () => unknown) | [new () => unknown],
+  type:
+    | 'string'
+    | 'number'
+    | 'boolean'
+    | { enum: string[] }
+    | (new () => unknown)
+    | ['string' | 'number' | 'boolean' | { enum: string[] } | (new () => unknown)],
   description: string,
   optional = false,
 ) {
@@ -101,7 +107,9 @@ export function gptObjectField(
               ? { type: 'number' }
               : elementType === 'boolean'
               ? { type: 'boolean' }
-              : (GPT_TYPE_METADATA.get(elementType) as GPTTypeMetadata),
+              : typeof elementType === 'function'
+              ? (GPT_TYPE_METADATA.get(elementType) as GPTTypeMetadata)
+              : { type: 'enum', values: elementType.enum },
         },
         required: !optional,
       });
@@ -112,8 +120,81 @@ export function gptObjectField(
         type: GPT_TYPE_METADATA.get(type) as GPTTypeMetadata,
         required: !optional,
       });
+    } else {
+      metadata.fields.push({
+        name: propertyKey,
+        description,
+        type: { type: 'enum', values: type.enum },
+        required: !optional,
+      });
     }
 
     GPT_TYPE_METADATA.set(ctor, metadata);
   };
+}
+
+/**
+ * Use this decorator on a string property within a custom class to include it as a parameter for function-calling.
+ *
+ * @param description - Description of the field.
+ * @param optional - Whether the field is optional. Default to `false`.
+ */
+export function gptString(description: string, optional = false) {
+  return gptObjectField('string', description, optional);
+}
+
+/**
+ * Use this decorator on a number property within a custom class to include it as a parameter for function-calling.
+ *
+ * @param description - Description of the field.
+ * @param optional - Whether the field is optional. Default to `false`.
+ */
+export function gptNumber(description: string, optional = false) {
+  return gptObjectField('number', description, optional);
+}
+
+/**
+ * Use this decorator on a boolean property within a custom class to include it as a parameter for function-calling.
+ *
+ * @param description - Description of the field.
+ * @param optional - Whether the field is optional. Default to `false`.
+ */
+export function gptBoolean(description: string, optional = false) {
+  return gptObjectField('boolean', description, optional);
+}
+
+/**
+ * Use this decorator on a custom class property within a custom class to include it as a parameter for function-calling.
+ *
+ * @param type - Type of the field.
+ * @param description - Description of the field.
+ * @param optional - Whether the field is optional. Default to `false`.
+ */
+export function gptObject(type: new () => unknown, description: string, optional = false) {
+  return gptObjectField(type, description, optional);
+}
+
+/**
+ * Use this decorator on a custom class property within a custom class to include it as a parameter for function-calling.
+ *
+ * @param values - Possible values of the enum.
+ * @param description - Description of the field.
+ * @param optional - Whether the field is optional. Default to `false`.
+ */
+export function gptEnum(values: string[], description: string, optional = false) {
+  return gptObjectField({ enum: values }, description, optional);
+}
+
+/**
+ * Use this decorator on an array of strings property within a custom class to include it as a parameter for function-calling.
+ *
+ * @param description - Description of the field.
+ * @param optional - Whether the field is optional. Default to `false`.
+ */
+export function gptArray(
+  type: 'string' | 'number' | 'boolean' | { enum: string[] } | (new () => unknown),
+  description: string,
+  optional = false,
+) {
+  return gptObjectField([type], description, optional);
 }

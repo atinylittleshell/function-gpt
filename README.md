@@ -16,9 +16,16 @@
 ## Example
 
 ```typescript
-import { gptFunction, gptObjectField, ChatGPTSession } from 'function-gpt';
+import { gptFunction, gptString, ChatGPTSession } from 'function-gpt';
 
-// First create your own class that extends ChatGPTSession.
+// Define the type of the input parameter for functions above.
+class BrowseParams {
+  // Decorate each field with @gptObjectField to provide necessary metadata.
+  @gptString('url of the web page to browse')
+  public url!: string;
+}
+
+// Create your own class that extends ChatGPTSession.
 class BrowseSession extends ChatGPTSession {
   // Define functions that you want to provide to ChatGPT for function calling.
   // Decorate each function with @gptFunction to provide necessary metadata.
@@ -28,13 +35,6 @@ class BrowseSession extends ChatGPTSession {
     const response = await fetch(params.url);
     return await response.text();
   }
-}
-
-// Define the type of the input parameter for functions above.
-class BrowseParams {
-  // Decorate each field with @gptObjectField to provide necessary metadata.
-  @gptObjectField('string', 'url of the web page to browse')
-  public url!: string;
 }
 
 const session = new BrowseSession();

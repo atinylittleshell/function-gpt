@@ -42,6 +42,13 @@ const describeField = (description: string | null, fieldType: GPTTypeMetadata) =
         required: fieldType.fields.filter((f) => f.required).map((f) => f.name),
       };
       break;
+    case 'enum':
+      result = {
+        ...result,
+        type: 'string',
+        enum: fieldType.values,
+      };
+      break;
     case 'array':
       result = {
         ...result,
@@ -69,8 +76,8 @@ export type ChatGPTSessionOptions = {
  * Represents a function call requested by ChatGPT.
  */
 export type ChatGPTFunctionCall = {
-  arguments: string;
   name: string;
+  arguments: string;
 };
 
 /**
