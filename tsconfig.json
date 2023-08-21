@@ -29,6 +29,7 @@
     "entryPoints": ["index.ts"],
     "out": "doc",
     "readme": "none",
+    "sort": ["source-order", "alphabetical"],
     "plugin": ["typedoc-plugin-markdown"]
   }
 }

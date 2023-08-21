@@ -17,10 +17,10 @@ Provide functions to the assistant by decorating them with the `@gptFunction` de
 
 ### Properties
 
-- [metadata](ChatGPTSession.md#metadata)
 - [openai](ChatGPTSession.md#openai)
-- [options](ChatGPTSession.md#options)
+- [metadata](ChatGPTSession.md#metadata)
 - [sessionMessages](ChatGPTSession.md#sessionmessages)
+- [options](ChatGPTSession.md#options)
 
 ### Accessors
 
@@ -28,8 +28,8 @@ Provide functions to the assistant by decorating them with the `@gptFunction` de
 
 ### Methods
 
-- [processAssistantMessage](ChatGPTSession.md#processassistantmessage)
 - [send](ChatGPTSession.md#send)
+- [processAssistantMessage](ChatGPTSession.md#processassistantmessage)
 
 ## Constructors
 
@@ -49,19 +49,9 @@ Provide functions to the assistant by decorating them with the `@gptFunction` de
 
 #### Defined in
 
-[src/session.ts:211](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L211)
+[src/session.ts:252](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L252)
 
 ## Properties
-
-### metadata
-
-• `Private` `Readonly` **metadata**: `GPTClientMetadata`
-
-#### Defined in
-
-[src/session.ts:203](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L203)
-
-___
 
 ### openai
 
@@ -69,7 +59,27 @@ ___
 
 #### Defined in
 
-[src/session.ts:202](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L202)
+[src/session.ts:243](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L243)
+
+___
+
+### metadata
+
+• `Private` `Readonly` **metadata**: `GPTClientMetadata`
+
+#### Defined in
+
+[src/session.ts:244](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L244)
+
+___
+
+### sessionMessages
+
+• `Private` **sessionMessages**: [`ChatGPTSessionMessage`](../README.md#chatgptsessionmessage)[] = `[]`
+
+#### Defined in
+
+[src/session.ts:245](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L245)
 
 ___
 
@@ -81,17 +91,7 @@ Options for the ChatGPTSession constructor.
 
 #### Defined in
 
-[src/session.ts:211](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L211)
-
-___
-
-### sessionMessages
-
-• `Private` **sessionMessages**: [`ChatGPTSessionMessage`](../README.md#chatgptsessionmessage)[] = `[]`
-
-#### Defined in
-
-[src/session.ts:204](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L204)
+[src/session.ts:252](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L252)
 
 ## Accessors
 
@@ -107,30 +107,9 @@ The messages sent to and from the assistant so far.
 
 #### Defined in
 
-[src/session.ts:261](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L261)
+[src/session.ts:302](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L302)
 
 ## Methods
-
-### processAssistantMessage
-
-▸ `Private` **processAssistantMessage**(`message`, `options`): `Promise`<`string`\>
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `message` | [`ChatGPTSessionMessage`](../README.md#chatgptsessionmessage) |
-| `options` | [`ChatGPTSendMessageOptions`](../README.md#chatgptsendmessageoptions) |
-
-#### Returns
-
-`Promise`<`string`\>
-
-#### Defined in
-
-[src/session.ts:265](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L265)
-
-___
 
 ### send
 
@@ -155,4 +134,25 @@ The assistant's response.
 
 #### Defined in
 
-[src/session.ts:228](https://github.com/atinylittleshell/function-gpt/blob/a8c982f/src/session.ts#L228)
+[src/session.ts:269](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L269)
+
+___
+
+### processAssistantMessage
+
+▸ `Private` **processAssistantMessage**(`message`, `options`): `Promise`<`string`\>
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `message` | [`ChatGPTSessionMessage`](../README.md#chatgptsessionmessage) |
+| `options` | [`ChatGPTSendMessageOptions`](../README.md#chatgptsendmessageoptions) |
+
+#### Returns
+
+`Promise`<`string`\>
+
+#### Defined in
+
+[src/session.ts:306](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L306)

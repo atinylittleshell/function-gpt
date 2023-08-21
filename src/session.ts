@@ -69,7 +69,48 @@ const describeField = (description: string | null, fieldType: GPTTypeMetadata) =
  * @see [OpenAI Node Client](https://github.com/openai/openai-node)
  */
 export type ChatGPTSessionOptions = {
+  /**
+   * Your API key for the OpenAI API.
+   *
+   * @default process.env["OPENAI_API_KEY"]
+   */
+  apiKey?: string;
+
+  /**
+   * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
+   */
+  baseURL?: string;
+
+  /**
+   * A system message to send to the assistant before the user's first message.
+   * Useful for setting up the assistant's behavior.
+   *
+   * @default No system message set.
+   */
   systemMessage?: string;
+
+  /**
+   * The maximum amount of time (in milliseconds) that the client should wait for a response
+   * from the server before timing out a single request.
+   *
+   * Note that request timeouts are retried by default, so in a worst-case scenario you may wait
+   * much longer than this timeout before the promise succeeds or fails.
+   */
+  timeout?: number;
+
+  /**
+   * The maximum number of times that the client will retry a request in case of a
+   * temporary failure, like a network error or a 5XX error from the server.
+   *
+   * @default 2
+   */
+  maxRetries?: number;
+
+  /**
+   * By default, client-side use of this library is not allowed, as it risks exposing your secret API credentials to attackers.
+   * Only set this option to `true` if you understand the risks and have appropriate mitigations in place.
+   */
+  dangerouslyAllowBrowser?: boolean;
 } & ClientOptions;
 
 /**
