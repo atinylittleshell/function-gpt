@@ -41,7 +41,7 @@ Provide functions to the assistant by decorating them with the `@gptFunction` de
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `options` | [`ChatGPTSessionOptions`](../README.md#chatgptsessionoptions) | Options for the ChatGPTSession constructor. |
+| `options` | [`ChatGPTSessionOptions`](../README.md#chatgptsessionoptions) & `ClientOptions` | Options for the ChatGPTSession constructor. |
 
 **`See`**
 
@@ -49,7 +49,7 @@ Provide functions to the assistant by decorating them with the `@gptFunction` de
 
 #### Defined in
 
-[src/session.ts:252](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L252)
+[src/session.ts:252](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/session.ts#L252)
 
 ## Properties
 
@@ -59,7 +59,7 @@ Provide functions to the assistant by decorating them with the `@gptFunction` de
 
 #### Defined in
 
-[src/session.ts:243](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L243)
+[src/session.ts:243](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/session.ts#L243)
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 #### Defined in
 
-[src/session.ts:244](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L244)
+[src/session.ts:244](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/session.ts#L244)
 
 ___
 
@@ -79,19 +79,19 @@ ___
 
 #### Defined in
 
-[src/session.ts:245](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L245)
+[src/session.ts:245](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/session.ts#L245)
 
 ___
 
 ### options
 
-• `Private` `Readonly` **options**: [`ChatGPTSessionOptions`](../README.md#chatgptsessionoptions) = `{}`
+• `Private` `Readonly` **options**: [`ChatGPTSessionOptions`](../README.md#chatgptsessionoptions) & `ClientOptions` = `{}`
 
 Options for the ChatGPTSession constructor.
 
 #### Defined in
 
-[src/session.ts:252](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L252)
+[src/session.ts:252](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/session.ts#L252)
 
 ## Accessors
 
@@ -107,7 +107,7 @@ The messages sent to and from the assistant so far.
 
 #### Defined in
 
-[src/session.ts:302](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L302)
+[src/session.ts:302](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/session.ts#L302)
 
 ## Methods
 
@@ -134,7 +134,7 @@ The assistant's response.
 
 #### Defined in
 
-[src/session.ts:269](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L269)
+[src/session.ts:269](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/session.ts#L269)
 
 ___
 
@@ -155,4 +155,4 @@ ___
 
 #### Defined in
 
-[src/session.ts:306](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L306)
+[src/session.ts:306](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/session.ts#L306)

@@ -30,7 +30,7 @@ function-gpt
 
 ### ChatGPTSessionOptions
 
-Ƭ **ChatGPTSessionOptions**: { `apiKey?`: `string` ; `baseURL?`: `string` ; `systemMessage?`: `string` ; `timeout?`: `number` ; `maxRetries?`: `number` ; `dangerouslyAllowBrowser?`: `boolean`  } & `ClientOptions`
+Ƭ **ChatGPTSessionOptions**: `Object`
 
 Options for the ChatGPTSession constructor. Compatible with the OpenAI node client options.
 
@@ -38,9 +38,20 @@ Options for the ChatGPTSession constructor. Compatible with the OpenAI node clie
 
 [OpenAI Node Client](https://github.com/openai/openai-node)
 
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `apiKey?` | `string` | Your API key for the OpenAI API. **`Default`** ```ts process.env["OPENAI_API_KEY"] ``` |
+| `baseURL?` | `string` | Override the default base URL for the API, e.g., "https://api.example.com/v2/" |
+| `systemMessage?` | `string` | A system message to send to the assistant before the user's first message. Useful for setting up the assistant's behavior. **`Default`** ```ts No system message set. ``` |
+| `timeout?` | `number` | The maximum amount of time (in milliseconds) that the client should wait for a response from the server before timing out a single request. Note that request timeouts are retried by default, so in a worst-case scenario you may wait much longer than this timeout before the promise succeeds or fails. |
+| `maxRetries?` | `number` | The maximum number of times that the client will retry a request in case of a temporary failure, like a network error or a 5XX error from the server. **`Default`** ```ts 2 ``` |
+| `dangerouslyAllowBrowser?` | `boolean` | By default, client-side use of this library is not allowed, as it risks exposing your secret API credentials to attackers. Only set this option to `true` if you understand the risks and have appropriate mitigations in place. |
+
 #### Defined in
 
-[src/session.ts:71](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L71)
+[src/session.ts:71](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/session.ts#L71)
 
 ___
 
@@ -59,7 +70,7 @@ Represents a function call requested by ChatGPT.
 
 #### Defined in
 
-[src/session.ts:119](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L119)
+[src/session.ts:119](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/session.ts#L119)
 
 ___
 
@@ -80,7 +91,7 @@ Represents a message in a ChatGPT session.
 
 #### Defined in
 
-[src/session.ts:127](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L127)
+[src/session.ts:127](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/session.ts#L127)
 
 ___
 
@@ -112,7 +123,7 @@ Options for the ChatGPTSession.send method.
 
 #### Defined in
 
-[src/session.ts:139](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/session.ts#L139)
+[src/session.ts:139](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/session.ts#L139)
 
 ## Functions
 
@@ -153,7 +164,7 @@ Use this decorator on a method within a ChatGPTSession subclass to enable it for
 
 #### Defined in
 
-[src/decorators.ts:19](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/decorators.ts#L19)
+[src/decorators.ts:19](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/decorators.ts#L19)
 
 ___
 
@@ -190,7 +201,7 @@ Use this decorator on a property within a custom class to include it as a parame
 
 #### Defined in
 
-[src/decorators.ts:53](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/decorators.ts#L53)
+[src/decorators.ts:53](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/decorators.ts#L53)
 
 ___
 
@@ -226,7 +237,7 @@ Use this decorator on a string property within a custom class to include it as a
 
 #### Defined in
 
-[src/decorators.ts:142](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/decorators.ts#L142)
+[src/decorators.ts:142](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/decorators.ts#L142)
 
 ___
 
@@ -262,7 +273,7 @@ Use this decorator on a number property within a custom class to include it as a
 
 #### Defined in
 
-[src/decorators.ts:152](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/decorators.ts#L152)
+[src/decorators.ts:152](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/decorators.ts#L152)
 
 ___
 
@@ -298,7 +309,7 @@ Use this decorator on a boolean property within a custom class to include it as 
 
 #### Defined in
 
-[src/decorators.ts:162](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/decorators.ts#L162)
+[src/decorators.ts:162](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/decorators.ts#L162)
 
 ___
 
@@ -335,7 +346,7 @@ Use this decorator on a custom class property within a custom class to include i
 
 #### Defined in
 
-[src/decorators.ts:173](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/decorators.ts#L173)
+[src/decorators.ts:173](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/decorators.ts#L173)
 
 ___
 
@@ -372,7 +383,7 @@ Use this decorator on a custom class property within a custom class to include i
 
 #### Defined in
 
-[src/decorators.ts:184](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/decorators.ts#L184)
+[src/decorators.ts:184](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/decorators.ts#L184)
 
 ___
 
@@ -409,4 +420,4 @@ Use this decorator on an array of strings property within a custom class to incl
 
 #### Defined in
 
-[src/decorators.ts:194](https://github.com/atinylittleshell/function-gpt/blob/8014308/src/decorators.ts#L194)
+[src/decorators.ts:194](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/decorators.ts#L194)

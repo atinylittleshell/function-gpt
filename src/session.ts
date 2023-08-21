@@ -111,7 +111,7 @@ export type ChatGPTSessionOptions = {
    * Only set this option to `true` if you understand the risks and have appropriate mitigations in place.
    */
   dangerouslyAllowBrowser?: boolean;
-} & ClientOptions;
+};
 
 /**
  * Represents a function call requested by ChatGPT.
@@ -249,7 +249,7 @@ export class ChatGPTSession {
    *
    * @see {@link ChatGPTSessionOptions}
    */
-  constructor(private readonly options: ChatGPTSessionOptions = {}) {
+  constructor(private readonly options: ChatGPTSessionOptions & ClientOptions = {}) {
     this.openai = new OpenAI(options);
 
     const metadata = GPT_CLIENT_METADATA.get(this.constructor as new () => ChatGPTSession);
