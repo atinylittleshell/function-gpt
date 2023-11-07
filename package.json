@@ -1,6 +1,6 @@
 {
   "name": "function-gpt",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "A library to simplify the handling of function calling in OpenAI's ChatGPT API.",
   "author": "atinylittleshell <shell@atinylittleshell.me>",
   "license": "MIT",
