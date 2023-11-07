@@ -1,4 +1,4 @@
-import type { ChatGPTSession } from './session.js';
+import { FunctionCallingProvider } from './public.js';
 
 export type GPTPrimitiveTypeMetadata = {
   type: 'string' | 'number' | 'boolean';
@@ -39,10 +39,78 @@ export type GPTFunctionMetadata = {
   inputType: GPTObjectTypeMetadata;
 };
 
-export type GPTClientMetadata = {
-  constructor: new () => ChatGPTSession;
+export type FunctionCallingProviderMetadata = {
+  constructor: new () => FunctionCallingProvider;
   functions: Record<string, GPTFunctionMetadata>;
 };
 
-export const GPT_CLIENT_METADATA = new Map<new () => ChatGPTSession, GPTClientMetadata>();
 export const GPT_TYPE_METADATA = new Map<new () => unknown, GPTTypeMetadata>();
+
+export const FUNCTION_CALLING_PROVIDER_METADATA = new Map<
+  new () => FunctionCallingProvider,
+  FunctionCallingProviderMetadata
+>();
+
+export const describeField = (
+  description: string | null,
+  fieldType: GPTTypeMetadata,
+) => {
+  let result: Record<string, unknown> =
+    description === null
+      ? {}
+      : {
+          description,
+        };
+
+  switch (fieldType.type) {
+    case 'string':
+      result = {
+        ...result,
+        type: 'string',
+      };
+      break;
+    case 'number':
+      result = {
+        ...result,
+        type: 'number',
+      };
+      break;
+    case 'boolean':
+      result = {
+        ...result,
+        type: 'boolean',
+      };
+      break;
+    case 'object':
+      result = {
+        ...result,
+        type: 'object',
+        properties: fieldType.fields.reduce((acc, f) => {
+          return {
+            ...acc,
+            [f.name]: describeField(f.description, f.type),
+          };
+        }, {}),
+        required: fieldType.fields.filter((f) => f.required).map((f) => f.name),
+      };
+      break;
+    case 'enum':
+      result = {
+        ...result,
+        type: 'string',
+        enum: fieldType.values,
+      };
+      break;
+    case 'array':
+      result = {
+        ...result,
+        type: 'array',
+        items: describeField(null, fieldType.elementType),
+      };
+      break;
+    default:
+      throw new Error(`Unknown field type: ${fieldType}`);
+  }
+
+  return result;
+};

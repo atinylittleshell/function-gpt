@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest';
 
 import {
-  ChatGPTSession,
+  FunctionCallingProvider,
   gptArray,
   gptBoolean,
   gptEnum,
@@ -12,8 +12,6 @@ import {
   gptString,
 } from '../index.js';
 
-process.env.OPENAI_API_KEY = 'test';
-
 test('basic function schema is generated correctly', async () => {
   class TestFuncInput {
     @gptObjectField('string', 'this is a test string', true)
@@ -23,15 +21,15 @@ test('basic function schema is generated correctly', async () => {
     public testNumber!: number;
   }
 
-  class TestSession extends ChatGPTSession {
+  class TestProvider extends FunctionCallingProvider {
     @gptFunction('this is a test function', TestFuncInput)
     testFunc(params: TestFuncInput) {
       return params;
     }
   }
 
-  const testSession = new TestSession();
-  const schema = testSession.getFunctionSchema();
+  const testProvider = new TestProvider();
+  const schema = testProvider.getSchema();
   expect(schema).toEqual([
     {
       name: 'testFunc',
@@ -60,15 +58,15 @@ test('input parameter can be an array of strings', () => {
     words!: string[];
   }
 
-  class TestSession extends ChatGPTSession {
+  class TestProvider extends FunctionCallingProvider {
     @gptFunction('this is a test function', TestParam)
     testFunc(params: TestParam) {
       return params;
     }
   }
 
-  const testSession = new TestSession();
-  const schema = testSession.getFunctionSchema();
+  const testProvider = new TestProvider();
+  const schema = testProvider.getSchema();
   expect(schema).toEqual([
     {
       name: 'testFunc',
@@ -116,15 +114,15 @@ test('all helper decorators should work', () => {
     arr!: string[];
   }
 
-  class TestSession extends ChatGPTSession {
+  class TestProvider extends FunctionCallingProvider {
     @gptFunction('this is a test function', TestParam)
     testFunc(params: TestParam) {
       return params;
     }
   }
 
-  const testSession = new TestSession();
-  const schema = testSession.getFunctionSchema();
+  const testProvider = new TestProvider();
+  const schema = testProvider.getSchema();
   expect(schema).toEqual([
     {
       name: 'testFunc',

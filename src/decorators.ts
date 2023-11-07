@@ -1,14 +1,15 @@
 import {
-  GPT_CLIENT_METADATA,
+  FUNCTION_CALLING_PROVIDER_METADATA,
+  FunctionCallingProviderMetadata,
   GPT_TYPE_METADATA,
-  GPTClientMetadata,
   GPTObjectTypeMetadata,
   GPTTypeMetadata,
 } from './internals.js';
-import { ChatGPTSession } from './session.js';
+import { FunctionCallingProvider } from './public.js';
 
 /**
- * Use this decorator on a method within a ChatGPTSession subclass to enable it for function-calling.
+ * Use this decorator on a method within a FunctionCallingProvider subclass
+ * to enable it for function-calling.
  *
  * @param description - A description of the function.
  * @param inputType - Input for the function should be an object instance of a custom class.
@@ -17,16 +18,23 @@ import { ChatGPTSession } from './session.js';
  * @see {@link gptObjectField}
  */
 export function gptFunction(description: string, inputType: new () => unknown) {
-  return function (target: object, propertyKey: string, descriptor: PropertyDescriptor) {
-    const ctor = target.constructor as new () => ChatGPTSession;
+  return function (
+    target: object,
+    propertyKey: string,
+    descriptor: PropertyDescriptor,
+  ) {
+    const ctor = target.constructor as new () => FunctionCallingProvider;
     if (!ctor) {
-      throw new Error(`@gptFunction decorator was used on '${propertyKey}' which is not a class instance method`);
+      throw new Error(
+        `@gptFunction decorator was used on '${propertyKey}' which is not a class instance method`,
+      );
     }
 
-    const metadata: GPTClientMetadata = GPT_CLIENT_METADATA.get(ctor) || {
-      constructor: ctor,
-      functions: {},
-    };
+    const metadata: FunctionCallingProviderMetadata =
+      FUNCTION_CALLING_PROVIDER_METADATA.get(ctor) || {
+        constructor: ctor,
+        functions: {},
+      };
 
     metadata.functions[propertyKey] = {
       name: propertyKey,
@@ -35,7 +43,7 @@ export function gptFunction(description: string, inputType: new () => unknown) {
       inputType: GPT_TYPE_METADATA.get(inputType) as GPTObjectTypeMetadata,
     };
 
-    GPT_CLIENT_METADATA.set(ctor, metadata);
+    FUNCTION_CALLING_PROVIDER_METADATA.set(ctor, metadata);
   };
 }
 
@@ -57,14 +65,22 @@ export function gptObjectField(
     | 'boolean'
     | { enum: string[] }
     | (new () => unknown)
-    | ['string' | 'number' | 'boolean' | { enum: string[] } | (new () => unknown)],
+    | [
+        | 'string'
+        | 'number'
+        | 'boolean'
+        | { enum: string[] }
+        | (new () => unknown),
+      ],
   description: string,
   optional = false,
 ) {
   return function (target: object, propertyKey: string) {
     const ctor = target.constructor as new () => unknown;
     if (!ctor) {
-      throw new Error(`@gptObjectField decorator was used on '${propertyKey}' which is not a class instance property`);
+      throw new Error(
+        `@gptObjectField decorator was used on '${propertyKey}' which is not a class instance property`,
+      );
     }
 
     const metadata = (GPT_TYPE_METADATA.get(ctor) as GPTObjectTypeMetadata) || {
@@ -170,7 +186,11 @@ export function gptBoolean(description: string, optional = false) {
  * @param description - Description of the field.
  * @param optional - Whether the field is optional. Default to `false`.
  */
-export function gptObject(type: new () => unknown, description: string, optional = false) {
+export function gptObject(
+  type: new () => unknown,
+  description: string,
+  optional = false,
+) {
   return gptObjectField(type, description, optional);
 }
 
@@ -181,7 +201,11 @@ export function gptObject(type: new () => unknown, description: string, optional
  * @param description - Description of the field.
  * @param optional - Whether the field is optional. Default to `false`.
  */
-export function gptEnum(values: string[], description: string, optional = false) {
+export function gptEnum(
+  values: string[],
+  description: string,
+  optional = false,
+) {
   return gptObjectField({ enum: values }, description, optional);
 }
 
@@ -192,7 +216,12 @@ export function gptEnum(values: string[], description: string, optional = false)
  * @param optional - Whether the field is optional. Default to `false`.
  */
 export function gptArray(
-  type: 'string' | 'number' | 'boolean' | { enum: string[] } | (new () => unknown),
+  type:
+    | 'string'
+    | 'number'
+    | 'boolean'
+    | { enum: string[] }
+    | (new () => unknown),
   description: string,
   optional = false,
 ) {

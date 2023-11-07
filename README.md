@@ -1,22 +1,21 @@
 # Function-GPT
 
-> This is a typescript library that helps handle [function calling](https://platform.openai.com/docs/guides/gpt/function-calling) with OpenAI's ChatGPT API.
+> This is a typescript library that helps handle [function calling](https://platform.openai.com/docs/guides/gpt/function-calling) with OpenAI.
 
 [![NPM](https://img.shields.io/npm/v/function-gpt.svg)](https://www.npmjs.com/package/function-gpt)
 [![Build Status](https://github.com/atinylittleshell/function-gpt/actions/workflows/publish.yml/badge.svg)](https://github.com/atinylittleshell/function-gpt/actions/workflows/publish.yml)
 [![codecov](https://codecov.io/gh/atinylittleshell/function-gpt/graph/badge.svg?token=1R81CX1Z14)](https://codecov.io/gh/atinylittleshell/function-gpt)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/atinylittleshell/function-gpt/blob/main/license)
 
-- Leverages the official [openai](https://www.npmjs.com/package/openai) npm package for communicating with OpenAI's API
 - Uses typescript decorators to provide metadata for function calling
 - Automatically generate function calling JSON schema from decorated typescript functions
-- Automatically parse function calling response
-- Automatically call functions and send back results to OpenAI
+- Automatically call functions based on name and JSON-formatted arguments
+- Can be used with OpenAI's Chat Completion API as well as the Assistants API
 
 ## Example
 
 ```typescript
-import { gptFunction, gptString, ChatGPTSession } from 'function-gpt';
+import { gptFunction, gptString, FunctionCallingProvider } from 'function-gpt';
 
 // Define the type of the input parameter for functions above.
 class BrowseParams {
@@ -25,9 +24,9 @@ class BrowseParams {
   public url!: string;
 }
 
-// Create your own class that extends ChatGPTSession.
-class BrowseSession extends ChatGPTSession {
-  // Define functions that you want to provide to ChatGPT for function calling.
+// Create your own class that extends FunctionCallingProvider.
+class BrowseProvider extends FunctionCallingProvider {
+  // Define functions that you want to provide to OpenAI for function calling.
   // Decorate each function with @gptFunction to provide necessary metadata.
   // The function should accept a single parameter that is a typed object.
   @gptFunction('make http request to a url and return its html content', BrowseParams)
@@ -37,22 +36,13 @@ class BrowseSession extends ChatGPTSession {
   }
 }
 
-const session = new BrowseSession();
-const response = await session.send('count characters in the html content of https://www.google.com.');
+const provider = new BrowseProvider();
 
-// BrowseSession will first call OpenAI's ChatGPT API with the above prompt
-// along with metadata about the browse function.
-
-// OpenAI's ChatGPT API will then return a function calling response that
-// asks for making a call to the browse function.
-
-// BrowseSession will then call the browse function with the parameters
-// specified in OpenAI's function calling response, and then send back the
-// result to OpenAI's ChatGPT API.
-
-// OpenAI's ChatGPT API will then return a message that contains the
-// chat response.
-expect(response).toBe('There are 4096 characters in the html content of https://www.google.com/.');
+const schema = await provider.getSchema();
+const result = await provider.handleFunctionCall(
+  'browse',
+  JSON.stringify({ url: 'https://www.google.com' }),
+);
 ```
 
 ## API References

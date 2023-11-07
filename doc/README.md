@@ -6,14 +6,7 @@ function-gpt
 
 ### Classes
 
-- [ChatGPTSession](classes/ChatGPTSession.md)
-
-### Type Aliases
-
-- [ChatGPTSessionOptions](README.md#chatgptsessionoptions)
-- [ChatGPTFunctionCall](README.md#chatgptfunctioncall)
-- [ChatGPTSessionMessage](README.md#chatgptsessionmessage)
-- [ChatGPTSendMessageOptions](README.md#chatgptsendmessageoptions)
+- [FunctionCallingProvider](classes/FunctionCallingProvider.md)
 
 ### Functions
 
@@ -26,112 +19,14 @@ function-gpt
 - [gptEnum](README.md#gptenum)
 - [gptArray](README.md#gptarray)
 
-## Type Aliases
-
-### ChatGPTSessionOptions
-
-Ƭ **ChatGPTSessionOptions**: `Object`
-
-Options for the ChatGPTSession constructor. Compatible with the OpenAI node client options.
-
-**`See`**
-
-[OpenAI Node Client](https://github.com/openai/openai-node)
-
-#### Type declaration
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `apiKey?` | `string` | Your API key for the OpenAI API. **`Default`** ```ts process.env["OPENAI_API_KEY"] ``` |
-| `baseURL?` | `string` | Override the default base URL for the API, e.g., "https://api.example.com/v2/" |
-| `systemMessage?` | `string` | A system message to send to the assistant before the user's first message. Useful for setting up the assistant's behavior. **`Default`** ```ts No system message set. ``` |
-| `timeout?` | `number` | The maximum amount of time (in milliseconds) that the client should wait for a response from the server before timing out a single request. Note that request timeouts are retried by default, so in a worst-case scenario you may wait much longer than this timeout before the promise succeeds or fails. |
-| `maxRetries?` | `number` | The maximum number of times that the client will retry a request in case of a temporary failure, like a network error or a 5XX error from the server. **`Default`** ```ts 2 ``` |
-| `dangerouslyAllowBrowser?` | `boolean` | By default, client-side use of this library is not allowed, as it risks exposing your secret API credentials to attackers. Only set this option to `true` if you understand the risks and have appropriate mitigations in place. |
-
-#### Defined in
-
-[src/session.ts:71](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/session.ts#L71)
-
-___
-
-### ChatGPTFunctionCall
-
-Ƭ **ChatGPTFunctionCall**: `Object`
-
-Represents a function call requested by ChatGPT.
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `name` | `string` |
-| `arguments` | `string` |
-
-#### Defined in
-
-[src/session.ts:119](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/session.ts#L119)
-
-___
-
-### ChatGPTSessionMessage
-
-Ƭ **ChatGPTSessionMessage**: `Object`
-
-Represents a message in a ChatGPT session.
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `role` | ``"system"`` \| ``"user"`` \| ``"assistant"`` \| ``"function"`` |
-| `name?` | `string` |
-| `content` | `string` \| ``null`` |
-| `function_call?` | [`ChatGPTFunctionCall`](README.md#chatgptfunctioncall) |
-
-#### Defined in
-
-[src/session.ts:127](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/session.ts#L127)
-
-___
-
-### ChatGPTSendMessageOptions
-
-Ƭ **ChatGPTSendMessageOptions**: `Object`
-
-Options for the ChatGPTSession.send method.
-
-**`See`**
-
-[OpenAI Chat Completion API](https://platform.openai.com/docs/api-reference/chat/create).
-
-#### Type declaration
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `function_call_execute_only?` | `boolean` | Stop the session after executing the function call. Useful when you don't need to give ChatGPT the result of the function call. Defaults to `false`. |
-| `model` | `string` | ID of the model to use. **`See`** [model endpoint compatibility](https://platform.openai.com/docs/models/overview) |
-| `frequency_penalty?` | `number` \| ``null`` | Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim. **`See`** [See more information about frequency and presence penalties.](https://platform.openai.com/docs/api-reference/parameter-details) |
-| `function_call?` | ``"none"`` \| ``"auto"`` \| { `name`: `string`  } | Controls how the model responds to function calls. "none" means the model does not call a function, and responds to the end-user. "auto" means the model can pick between an end-user or calling a function. Specifying a particular function via `{"name":\ "my_function"}` forces the model to call that function. "none" is the default when no functions are present. "auto" is the default if functions are present. |
-| `logit_bias?` | `Record`<`string`, `number`\> \| ``null`` | Modify the likelihood of specified tokens appearing in the completion. Accepts a json object that maps tokens (specified by their token ID in the tokenizer) to an associated bias value from -100 to 100. Mathematically, the bias is added to the logits generated by the model prior to sampling. The exact effect will vary per model, but values between -1 and 1 should decrease or increase likelihood of selection; values like -100 or 100 should result in a ban or exclusive selection of the relevant token. |
-| `max_tokens?` | `number` | The maximum number of [tokens](/tokenizer) to generate in the chat completion. The total length of input tokens and generated tokens is limited by the model's context length. [Example Python code](https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb) for counting tokens. |
-| `presence_penalty?` | `number` \| ``null`` | Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics. [See more information about frequency and presence penalties.](https://platform.openai.com/docs/api-reference/parameter-details) |
-| `stop?` | `string` \| ``null`` \| `string`[] | Up to 4 sequences where the API will stop generating further tokens. |
-| `temperature?` | `number` \| ``null`` | What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic. We generally recommend altering this or `top_p` but not both. |
-| `top_p?` | `number` \| ``null`` | An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. We generally recommend altering this or `temperature` but not both. |
-| `user?` | `string` | A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse. **`See`** [Learn more](https://platform.openai.com/docs/guides/safety-best-practices). |
-
-#### Defined in
-
-[src/session.ts:139](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/session.ts#L139)
-
 ## Functions
 
 ### gptFunction
 
 ▸ **gptFunction**(`description`, `inputType`): (`target`: `object`, `propertyKey`: `string`, `descriptor`: `PropertyDescriptor`) => `void`
 
-Use this decorator on a method within a ChatGPTSession subclass to enable it for function-calling.
+Use this decorator on a method within a FunctionCallingProvider subclass
+to enable it for function-calling.
 
 #### Parameters
 
@@ -164,7 +59,7 @@ Use this decorator on a method within a ChatGPTSession subclass to enable it for
 
 #### Defined in
 
-[src/decorators.ts:19](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/decorators.ts#L19)
+[src/decorators.ts:20](https://github.com/atinylittleshell/function-gpt/blob/51cdc39/src/decorators.ts#L20)
 
 ___
 
@@ -201,7 +96,7 @@ Use this decorator on a property within a custom class to include it as a parame
 
 #### Defined in
 
-[src/decorators.ts:53](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/decorators.ts#L53)
+[src/decorators.ts:61](https://github.com/atinylittleshell/function-gpt/blob/51cdc39/src/decorators.ts#L61)
 
 ___
 
@@ -237,7 +132,7 @@ Use this decorator on a string property within a custom class to include it as a
 
 #### Defined in
 
-[src/decorators.ts:142](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/decorators.ts#L142)
+[src/decorators.ts:158](https://github.com/atinylittleshell/function-gpt/blob/51cdc39/src/decorators.ts#L158)
 
 ___
 
@@ -273,7 +168,7 @@ Use this decorator on a number property within a custom class to include it as a
 
 #### Defined in
 
-[src/decorators.ts:152](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/decorators.ts#L152)
+[src/decorators.ts:168](https://github.com/atinylittleshell/function-gpt/blob/51cdc39/src/decorators.ts#L168)
 
 ___
 
@@ -309,7 +204,7 @@ Use this decorator on a boolean property within a custom class to include it as 
 
 #### Defined in
 
-[src/decorators.ts:162](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/decorators.ts#L162)
+[src/decorators.ts:178](https://github.com/atinylittleshell/function-gpt/blob/51cdc39/src/decorators.ts#L178)
 
 ___
 
@@ -346,7 +241,7 @@ Use this decorator on a custom class property within a custom class to include i
 
 #### Defined in
 
-[src/decorators.ts:173](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/decorators.ts#L173)
+[src/decorators.ts:189](https://github.com/atinylittleshell/function-gpt/blob/51cdc39/src/decorators.ts#L189)
 
 ___
 
@@ -383,7 +278,7 @@ Use this decorator on a custom class property within a custom class to include i
 
 #### Defined in
 
-[src/decorators.ts:184](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/decorators.ts#L184)
+[src/decorators.ts:204](https://github.com/atinylittleshell/function-gpt/blob/51cdc39/src/decorators.ts#L204)
 
 ___
 
@@ -420,4 +315,4 @@ Use this decorator on an array of strings property within a custom class to incl
 
 #### Defined in
 
-[src/decorators.ts:194](https://github.com/atinylittleshell/function-gpt/blob/24758c8/src/decorators.ts#L194)
+[src/decorators.ts:218](https://github.com/atinylittleshell/function-gpt/blob/51cdc39/src/decorators.ts#L218)
